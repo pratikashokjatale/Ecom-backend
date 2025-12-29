@@ -3,6 +3,6 @@ services:
     type: web
     env: docker
     plan: free
-    rootDir: Ecom-backend
+    rootDir: .
 
     
