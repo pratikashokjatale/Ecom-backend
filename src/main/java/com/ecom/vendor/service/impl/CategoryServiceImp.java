@@ -7,8 +7,6 @@ import com.ecom.vendor.entity.CategoryRef;
 import com.ecom.vendor.repository.CategoryRefRepository;
 import com.ecom.vendor.service.CategoryService;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class CategoryServiceImp  implements CategoryService{
 	
@@ -17,6 +15,7 @@ public class CategoryServiceImp  implements CategoryService{
 	
 
 	@Override
+
 	public CategoryRef addCategory( CategoryRef categoryRef) {
 		return categoryRefRepository.save(categoryRef) ;
 	}

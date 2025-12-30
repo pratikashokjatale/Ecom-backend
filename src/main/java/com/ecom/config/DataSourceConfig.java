@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -25,17 +26,12 @@ public class DataSourceConfig {
 
     @Bean
     @ConditionalOnMissingBean(DataSource.class)
+    @ConditionalOnProperty(name = "DATABASE_URL")
     public DataSource dataSource() {
-        String springUrl = env.getProperty("spring.datasource.url");
-        if (springUrl != null && !springUrl.isBlank()) {
-            log.debug("spring.datasource.url is set, leaving auto-configuration to Spring Boot");
-            return null; // allow default autoconfiguration to proceed
-        }
-
         String databaseUrl = env.getProperty("DATABASE_URL");
         if (databaseUrl == null || databaseUrl.isBlank()) {
-            log.warn("No spring.datasource.url or DATABASE_URL found; no manual DataSource created");
-            return null;
+            log.warn("DATABASE_URL is not set or empty despite @ConditionalOnProperty; skipping DataSource creation");
+            throw new IllegalStateException("DATABASE_URL is required to create DataSource");
         }
 
         try {

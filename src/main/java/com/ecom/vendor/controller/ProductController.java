@@ -1,7 +1,9 @@
 package com.ecom.vendor.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.ecom.vendor.dto.ProductRequest;
@@ -25,7 +27,8 @@ public class ProductController {
     }
 
     // Vendor: create product (goes to PENDING)
-    @PostMapping(value = "/vendor", consumes = org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/vendor", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ProductResponse> create(@ModelAttribute ProductRequest req) {
         return ResponseEntity.ok(productService.createProduct(req));
     }

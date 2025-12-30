@@ -4,5 +4,17 @@ services:
     env: docker
     plan: free
     rootDir: .
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      # The following are examples of env vars you should set in the Render dashboard (do NOT commit secrets):
+      # - key: SPRING_DATASOURCE_URL
+      #   value: jdbc:mysql://host:3306/dbname?ssl-mode=REQUIRED
+      # - key: SPRING_DATASOURCE_USERNAME
+      #   value: your_db_user
+      # - key: SPRING_DATASOURCE_PASSWORD
+      #   value: your_db_password
+      # - key: JWT_SECRET
+      #   value: <your_jwt_secret>
 
     
