@@ -17,7 +17,6 @@ public class CategoryServiceImp  implements CategoryService{
 	
 
 	@Override
-	@Transactional
 	public CategoryRef addCategory( CategoryRef categoryRef) {
 		return categoryRefRepository.save(categoryRef) ;
 	}

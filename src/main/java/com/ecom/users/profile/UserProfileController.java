@@ -31,10 +31,10 @@ public class UserProfileController {
         return ResponseEntity.ok(createdProfile);
     }
 
-//    @GetMapping("/{userId}")
-//    @PreAuthorize("hasRole('USER')")
-//    public ResponseEntity<Userprofile> getUserProfile(@PathVariable Long userId) {
-//        Userprofile userProfile = userProfileService.getUserProfileByUserId(userId);
-//        return ResponseEntity.ok(userProfile);
-//    }
+    @GetMapping("/{userId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Userprofile> getUserProfile(@PathVariable Long userId) {
+        Userprofile userProfile = userProfileService.getUserProfileByUserId(userId);
+        return ResponseEntity.ok(userProfile);
+    }
 }

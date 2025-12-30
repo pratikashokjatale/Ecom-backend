@@ -5,7 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ecom.vendor.dto.ProductResponse;
 import com.ecom.vendor.entity.CategoryRef;
@@ -61,6 +68,7 @@ public class InternalAdminController {
     }
 
     @PostMapping("/addcategory")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryRef> addCategory(@RequestBody CategoryRef categoryRef) {
         CategoryRef saved = categoryService.addCategory(categoryRef);
         return ResponseEntity.ok(saved);

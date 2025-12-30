@@ -31,8 +31,11 @@ public class UserProfileService {
         return userProfileRepository.save(userprofil);
     }
 
-//    public Userprofile getUserProfileByUserId(Long userId) {
-//        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-//        return userProfileRepository.findByUser(user);
-//    }
+
+
+	
+    public Userprofile getUserProfileByUserId(Long userId) {
+        Userprofile user = userProfileRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return user;
+    }
 }
