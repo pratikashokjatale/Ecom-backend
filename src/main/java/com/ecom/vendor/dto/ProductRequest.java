@@ -1,8 +1,8 @@
 package com.ecom.vendor.dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class ProductRequest {
 
@@ -11,6 +11,9 @@ public class ProductRequest {
     private String description;
     private MultipartFile mainImage;
     private List<MultipartFile> additionalImages;
+    // optional: accept image URLs instead of files
+    private String mainImageUrl;
+    private List<String> additionalImageUrls;
     private Long vendorId;
     private Long categoryId;
     private String categoryName;
@@ -55,6 +58,22 @@ public class ProductRequest {
 
     public void setAdditionalImages(List<MultipartFile> additionalImages) {
         this.additionalImages = additionalImages;
+    }
+
+    public String getMainImageUrl() {
+        return mainImageUrl;
+    }
+
+    public void setMainImageUrl(String mainImageUrl) {
+        this.mainImageUrl = mainImageUrl;
+    }
+
+    public List<String> getAdditionalImageUrls() {
+        return additionalImageUrls;
+    }
+
+    public void setAdditionalImageUrls(List<String> additionalImageUrls) {
+        this.additionalImageUrls = additionalImageUrls;
     }
 
     public Long getVendorId() {

@@ -1,8 +1,8 @@
 package com.ecom.vendor.dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.vendor.dto.VariantDto.VariantDto;
 
@@ -70,6 +70,16 @@ public class ItemRequest {
     }
     private Integer inventory;
     private MultipartFile itemImage;
+    // optional URL for item image
+    private String itemImageUrl;
     private List<VariantDto> variants;
+
     // getters/setters
+    public String getItemImageUrl() {
+        return itemImageUrl;
+    }
+
+    public void setItemImageUrl(String itemImageUrl) {
+        this.itemImageUrl = itemImageUrl;
+    }
 }

@@ -52,6 +52,8 @@ public class ProductServiceImpl implements ProductService {
             if (req.getMainImage() != null && !req.getMainImage().isEmpty()) {
                 String mainImageUrl = cloudinaryService.uploadImage(req.getMainImage());
                 p.setMainImage(mainImageUrl);
+            } else if (req.getMainImageUrl() != null && !req.getMainImageUrl().isBlank()) {
+                p.setMainImage(req.getMainImageUrl());
             }
             if (req.getAdditionalImages() != null && !req.getAdditionalImages().isEmpty()) {
                 List<String> urls = new ArrayList<>();
@@ -62,6 +64,8 @@ public class ProductServiceImpl implements ProductService {
                     }
                 }
                 p.setAdditionalImages(String.join(",", urls));
+            } else if (req.getAdditionalImageUrls() != null && !req.getAdditionalImageUrls().isEmpty()) {
+                p.setAdditionalImages(String.join(",", req.getAdditionalImageUrls()));
             }
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload images", e);
@@ -89,6 +93,8 @@ public class ProductServiceImpl implements ProductService {
                     if (ir.getItemImage() != null && !ir.getItemImage().isEmpty()) {
                         String itemImageUrl = cloudinaryService.uploadImage(ir.getItemImage());
                         item.setItemImage(itemImageUrl);
+                    } else if (ir.getItemImageUrl() != null && !ir.getItemImageUrl().isBlank()) {
+                        item.setItemImage(ir.getItemImageUrl());
                     }
                 } catch (IOException e) {
                     throw new RuntimeException("Failed to upload item image", e);
