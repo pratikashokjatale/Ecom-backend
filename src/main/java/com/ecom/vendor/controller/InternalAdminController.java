@@ -68,9 +68,16 @@ public class InternalAdminController {
     }
 
     @PostMapping("/addcategory")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<CategoryRef> addCategory(@RequestBody CategoryRef categoryRef) {
         CategoryRef saved = categoryService.addCategory(categoryRef);
         return ResponseEntity.ok(saved);
     }
+    
+    @GetMapping("/getcategory")
+    public List<CategoryRef> getcategory(){
+    	
+    	return categoryService.getcategory();
+    }
+    
 }

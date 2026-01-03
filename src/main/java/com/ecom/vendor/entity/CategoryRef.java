@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Table(name = "categories_ref")
 public class CategoryRef {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // category id from category-service
 
     private String name;
