@@ -11,5 +11,5 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 # Let the container bind to the port Render provides via $PORT (default 8080)
-EXPOSE 8080
+EXPOSE 8081
 ENTRYPOINT ["sh","-c","java -Dserver.port=${PORT:-8080} $JAVA_OPTS -jar app.jar"]

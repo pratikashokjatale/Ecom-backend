@@ -1,11 +1,13 @@
 package com.ecom.auth.security;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.core.env.Environment;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -30,12 +32,15 @@ public class WebSecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
+    private final Environment env;
 
     @Autowired
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService,
-            AuthEntryPointJwt unauthorizedHandler) {
+            AuthEntryPointJwt unauthorizedHandler,
+            Environment env) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
+        this.env = env;
     }
 
     @Bean
@@ -93,20 +98,24 @@ public class WebSecurityConfig {
                 .sessionManagement(session
                         -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                        "/api/auth/**",
-                        "/api/test/**",
-                        "/api/images/**",
-                        "/products/all",
-                        "/swagger-ui/**",
-                        "/swagger-ui.html",
-                        "/v3/api-docs/**"
-                ).permitAll()
-                // allow public GET access to product listings
-                .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
-                .anyRequest().authenticated()
-                )
+                .authorizeHttpRequests(auth -> {
+                    boolean isDev = Arrays.stream(env.getActiveProfiles()).anyMatch(p -> p.equalsIgnoreCase("dev"));
+
+                    auth.requestMatchers(
+                            "/api/auth/**",
+                            "/api/test/**",
+                            "/api/images/**",
+                            "/products/all",
+                            "/swagger-ui/**",
+                            "/swagger-ui.html",
+                            "/v3/api-docs/**"
+                    ).permitAll();
+
+                   
+                   
+
+                    auth.anyRequest().authenticated();
+                })
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(
                         authenticationJwtTokenFilter(),
