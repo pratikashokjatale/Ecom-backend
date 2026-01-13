@@ -48,6 +48,7 @@ public class Product {
     @JoinColumn(name = "category_ref_id")
     private CategoryRef categoryRef;
 
+    @com.fasterxml.jackson.annotation.JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
 
